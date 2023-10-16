@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ElementType, ChangeEvent, SyntheticEvent } from 'react'
+import { useState, ElementType, ChangeEvent, SyntheticEvent, useEffect } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -20,6 +20,8 @@ import Button, { ButtonProps } from '@mui/material/Button'
 
 // ** Icons Imports
 import Close from 'mdi-material-ui/Close'
+import { useAppDispatch } from 'src/_redux/hooks'
+import { AccountSelector, getAccountInfoAction } from 'src/_redux/features/auth'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
@@ -60,6 +62,24 @@ const TabAccount = () => {
     }
   }
 
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getAccountInfoAction())
+  }, [])
+  const accountSelector = AccountSelector()
+
+  // const email = accountSelector.accountData?.email
+  // const [defaultValue, setDefaultValue] = useState(email)
+  // useEffect(() => {
+  //   if (email) {
+  //     setDefaultValue(email)
+  //   }
+  // }, [email])
+  // const [email, setEmail] = useState(accountSelector.loading ? 'loading' : accountSelector.accountData?.email)
+  // const handleEmailChange = (event: any) => {
+  //   setEmail(event.target.value)
+  // }
+
   return (
     <CardContent>
       <form>
@@ -88,24 +108,50 @@ const TabAccount = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <TextField fullWidth label='Username' placeholder='johnDoe' defaultValue='johnDoe' />
+          </Grid> */}
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label='First Name'
+              placeholder={accountSelector.accountData?.firstName}
+              value={accountSelector.accountData?.firstName}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Name' placeholder='John Doe' defaultValue='John Doe' />
+            <TextField
+              fullWidth
+              label='Last Name'
+              placeholder={accountSelector.accountData?.lastName}
+              value={accountSelector.accountData?.lastName}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               type='email'
               label='Email'
-              placeholder='johnDoe@example.com'
-              defaultValue='johnDoe@example.com'
+              placeholder={accountSelector.accountData?.email}
+              value={accountSelector.loading ? 'loading' : accountSelector.accountData?.email}
+
+              // defaultValue={email}
+              // placeholder={email}
+              // value={accountSelector.accountData?.email}
+              // value={email}
+              // onChange={handleEmailChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            <TextField
+              fullWidth
+              label='Permission'
+              placeholder={accountSelector.accountData?.email}
+              value={accountSelector.loading ? 'loading' : accountSelector.accountData?.email}
+            />
+            {/* <FormControl fullWidth>
               <InputLabel>Role</InputLabel>
+              <InputLabel>Permission</InputLabel>
               <Select label='Role' defaultValue='admin'>
                 <MenuItem value='admin'>Admin</MenuItem>
                 <MenuItem value='author'>Author</MenuItem>
@@ -113,7 +159,7 @@ const TabAccount = () => {
                 <MenuItem value='maintainer'>Maintainer</MenuItem>
                 <MenuItem value='subscriber'>Subscriber</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>

@@ -4,7 +4,7 @@ import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react'
 // ** Next Imports
 import Link from 'next/link'
 
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
@@ -40,6 +40,10 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import { login } from 'src/apis/auth'
+import { saveToken } from 'src/helpers/storage'
+import Snackbar from '@mui/material/Snackbar'
+import * as React from 'react'
+import MuiAlert, { AlertProps } from '@mui/material/Alert'
 
 interface State {
   password: string
@@ -68,7 +72,36 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
   }
 }))
 
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+})
+
 const LoginPage = () => {
+  const [open, setOpen] = React.useState(false)
+  const [openError, setOpenError] = React.useState(false)
+
+  const handleClick = () => {
+    setOpen(true)
+  }
+  const handleClickError = () => {
+    setOpenError(true)
+  }
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
+  }
+  const handleCloseError = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpenError(false)
+  }
+
   // ** State
   const [email, setEmail] = useState<StateEmail>({
     email: ''
@@ -81,7 +114,7 @@ const LoginPage = () => {
   // ** Hook
   const theme = useTheme()
 
-  // const router = useRouter()
+  const router = useRouter()
 
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
@@ -107,9 +140,12 @@ const LoginPage = () => {
         password: values.password
       }
       const loginResponse = await login(params)
-      console.log(loginResponse)
+      saveToken(loginResponse.token)
+      handleClick()
+      router.push('/')
     } catch (err) {
       console.log('err', err)
+      handleClickError()
     }
   }
 
@@ -243,6 +279,7 @@ const LoginPage = () => {
               size='large'
               variant='contained'
               sx={{ marginBottom: 7 }}
+
               // onClick={() => router.push('/')}
               onClick={handleLogin}
             >
@@ -287,6 +324,21 @@ const LoginPage = () => {
         </CardContent>
       </Card>
       <FooterIllustrationsV1 />
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical:'top', horizontal:'right' }}
+        open={openError}
+        autoHideDuration={6000}
+        onClose={handleCloseError}
+      >
+        <Alert onClose={handleCloseError} severity='error' sx={{ width: '100%' }}>
+          This is a error message!
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

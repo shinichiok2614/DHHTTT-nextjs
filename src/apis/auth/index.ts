@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { BASE_URL } from '..'
-import { ILoginParam } from 'src/types/account'
+import IAccountInfo, { ILoginParam } from 'src/types/account'
 
 // interface ILoginParam {
 //   username: string
@@ -41,4 +41,11 @@ const login = async (params: ILoginParam) => {
   }
 }
 
-export { login }
+const getAccountInfo = () => {
+  return axios.get(`${BASE_URL}/users/about`).then(res => {
+    const accountInfo = res.data as IAccountInfo
+
+    return accountInfo
+  })
+}
+export { login, getAccountInfo }
