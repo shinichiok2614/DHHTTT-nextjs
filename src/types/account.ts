@@ -1,3 +1,7 @@
+interface ILoginParam {
+  username: string
+  password: string
+}
 interface IAccountInfo {
   username: string
   active: boolean
@@ -5,3 +9,4 @@ interface IAccountInfo {
   email: string
 }
 export default IAccountInfo
+export type { ILoginParam }

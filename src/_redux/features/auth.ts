@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import IAccountInfo from 'src/types/account'
 
 export interface AuthState {
@@ -17,10 +17,14 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    increments: state => {
-      state.acccount.loading = true
-    }
+  reducers: {},
+  extraReducers: (builder) => {
+    // builder.addCase()    
   }
 })
-export const { increments } = authSlice.actions
+export const getAccountInfoAction = createAsyncThunk(
+  'auth/fetchAccount',
+  () => {
+    // return await
+  }
+)
