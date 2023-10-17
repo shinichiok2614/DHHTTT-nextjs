@@ -12,6 +12,7 @@ interface IAccountInfo {
   lastName: string
   createdAt: string
   updatedAt: string
+  idPermission: number
   level: number
   phone: string
   dateofbirth: string

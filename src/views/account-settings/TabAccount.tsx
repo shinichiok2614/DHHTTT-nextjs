@@ -22,6 +22,8 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import Close from 'mdi-material-ui/Close'
 import { useAppDispatch } from 'src/_redux/hooks'
 import { AccountSelector, getAccountInfoAction } from 'src/_redux/features/auth'
+import IAccountInfo from 'src/types/account'
+import { updateUser } from 'src/apis/user'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
@@ -68,18 +70,28 @@ const TabAccount = () => {
   }, [])
   const accountSelector = AccountSelector()
 
-  // const email = accountSelector.accountData?.email
-  // const [defaultValue, setDefaultValue] = useState(email)
-  // useEffect(() => {
-  //   if (email) {
-  //     setDefaultValue(email)
-  //   }
-  // }, [email])
-  // const [email, setEmail] = useState(accountSelector.loading ? 'loading' : accountSelector.accountData?.email)
-  // const handleEmailChange = (event: any) => {
-  //   setEmail(event.target.value)
-  // }
-
+  const initialData: IAccountInfo = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    createdAt: '',
+    updatedAt: '',
+    idPermission: 1,
+    level: 1,
+    phone: '',
+    dateofbirth: '',
+    address: '',
+    degree: '',
+    acedemicrank: '',
+    armyrank: '',
+    profilepicture: ''
+  }
+  const [data, setData] = useState<IAccountInfo>(initialData)
+  const handleUpdate = () => {
+    console.log('data')
+    console.log(data)
+    updateUser(data)
+  }
   return (
     <CardContent>
       <form>
@@ -108,71 +120,63 @@ const TabAccount = () => {
             </Box>
           </Grid>
 
-          {/* <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Username' placeholder='johnDoe' defaultValue='johnDoe' />
-          </Grid> */}
           <Grid item xs={12} sm={6}>
+            <InputLabel shrink={false} htmlFor="my-textfield">
+              First Name
+            </InputLabel>
             <TextField
               fullWidth
-              label='First Name'
               placeholder={accountSelector.accountData?.firstName}
-              value={accountSelector.accountData?.firstName}
+              onChange={(e) => setData({ ...data, firstName: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <InputLabel shrink={false} htmlFor="my-textfield">
+              Last Name
+            </InputLabel>
             <TextField
               fullWidth
-              label='Last Name'
               placeholder={accountSelector.accountData?.lastName}
-              value={accountSelector.accountData?.lastName}
+              onChange={(e) => setData({ ...data, lastName: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <InputLabel shrink={false} htmlFor="my-textfield">
+              Email
+            </InputLabel>
             <TextField
               fullWidth
               type='email'
-              label='Email'
               placeholder={accountSelector.accountData?.email}
-              value={accountSelector.loading ? 'loading' : accountSelector.accountData?.email}
-
-              // defaultValue={email}
-              // placeholder={email}
-              // value={accountSelector.accountData?.email}
-              // value={email}
-              // onChange={handleEmailChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <InputLabel shrink={false} htmlFor="my-textfield">
+              Permission
+            </InputLabel>
             <TextField
               fullWidth
-              label='Permission'
-              placeholder={accountSelector.accountData?.email}
-              value={accountSelector.loading ? 'loading' : accountSelector.accountData?.email}
             />
-            {/* <FormControl fullWidth>
-              <InputLabel>Role</InputLabel>
-              <InputLabel>Permission</InputLabel>
-              <Select label='Role' defaultValue='admin'>
-                <MenuItem value='admin'>Admin</MenuItem>
-                <MenuItem value='author'>Author</MenuItem>
-                <MenuItem value='editor'>Editor</MenuItem>
-                <MenuItem value='maintainer'>Maintainer</MenuItem>
-                <MenuItem value='subscriber'>Subscriber</MenuItem>
-              </Select>
-            </FormControl> */}
+
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Status</InputLabel>
-              <Select label='Status' defaultValue='active'>
-                <MenuItem value='active'>Active</MenuItem>
-                <MenuItem value='inactive'>Inactive</MenuItem>
-                <MenuItem value='pending'>Pending</MenuItem>
-              </Select>
-            </FormControl>
+
+            <InputLabel shrink={false} htmlFor="my-textfield">
+              Level
+            </InputLabel>
+            <TextField
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' />
+            <InputLabel shrink={false} htmlFor="my-textfield">
+              Created At
+            </InputLabel>
+            <TextField
+              fullWidth
+              placeholder={accountSelector.accountData?.createdAt}
+              value={accountSelector.loading ? 'loading' : accountSelector.accountData?.createdAt}
+            />
           </Grid>
 
           {openAlert ? (
@@ -195,7 +199,7 @@ const TabAccount = () => {
           ) : null}
 
           <Grid item xs={12}>
-            <Button variant='contained' sx={{ marginRight: 3.5 }}>
+            <Button variant='contained' sx={{ marginRight: 3.5 }} onClick={handleUpdate}>
               Save Changes
             </Button>
             <Button type='reset' variant='outlined' color='secondary'>

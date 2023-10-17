@@ -21,11 +21,11 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(undefined, err => {
   console.log(err.response)
-  if (err.response.status === 401) {
-    clearUserInfo()
-    clearToken()
-    window.location.href = '/pages/login'
-  }
+  // if (err.response.status === 401) {
+  //   clearUserInfo()
+  //   clearToken()
+  //   window.location.href = '/pages/login'
+  // }
 
   return err
 })
