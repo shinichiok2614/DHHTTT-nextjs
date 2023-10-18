@@ -21,6 +21,7 @@ interface IAccountInfo {
   acedemicrank: string
   armyrank: string
   profilepicture: string
+  bio:string
 }
 export default IAccountInfo
 export type { ILoginParam }

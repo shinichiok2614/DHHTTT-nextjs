@@ -1,12 +1,12 @@
-import axios from "axios"
-import { BASE_URL } from ".."
-import IAccountInfo from "src/types/account"
+import axios from 'axios'
+import { BASE_URL } from '..'
+import IAccountInfo from 'src/types/account'
 
 const updateUser = async (params: IAccountInfo) => {
-  console.log('updateUserNext');
-  console.log(params.email);
-  console.log(params.firstName);
-  console.log(params.lastName);
+  console.log('updateUserNext')
+  console.log(params.email)
+  console.log(params.firstName)
+  console.log(params.lastName)
   const formData = new URLSearchParams()
   formData.append('email', params.email)
   formData.append('firstName', params.firstName)
@@ -28,10 +28,12 @@ const updateUser = async (params: IAccountInfo) => {
     data: formData
   }
   try {
+    console.log('response')
     const response = await axios(config)
-    console.log(response);
+    response
   } catch (error) {
-    console.log(error);
+    console.log('error')
+    console.log(error)
     throw error
   }
 }

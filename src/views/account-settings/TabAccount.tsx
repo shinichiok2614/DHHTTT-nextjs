@@ -67,7 +67,7 @@ const TabAccount = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(getAccountInfoAction())
-  }, [])
+  }, [dispatch])
   const accountSelector = AccountSelector()
 
   const initialData: IAccountInfo = {
@@ -92,6 +92,7 @@ const TabAccount = () => {
     console.log(data)
     updateUser(data)
   }
+
   return (
     <CardContent>
       <form>
@@ -121,55 +122,45 @@ const TabAccount = () => {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <InputLabel shrink={false} htmlFor="my-textfield">
+            <InputLabel shrink={false} htmlFor='my-textfield'>
               First Name
             </InputLabel>
             <TextField
               fullWidth
               placeholder={accountSelector.accountData?.firstName}
-              onChange={(e) => setData({ ...data, firstName: e.target.value })}
+              onChange={e => setData({ ...data, firstName: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <InputLabel shrink={false} htmlFor="my-textfield">
+            <InputLabel shrink={false} htmlFor='my-textfield'>
               Last Name
             </InputLabel>
             <TextField
               fullWidth
               placeholder={accountSelector.accountData?.lastName}
-              onChange={(e) => setData({ ...data, lastName: e.target.value })}
+              onChange={e => setData({ ...data, lastName: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <InputLabel shrink={false} htmlFor="my-textfield">
+            <InputLabel shrink={false} htmlFor='my-textfield'>
               Email
             </InputLabel>
-            <TextField
-              fullWidth
-              type='email'
-              placeholder={accountSelector.accountData?.email}
-            />
+            <TextField fullWidth type='email' placeholder={accountSelector.accountData?.email} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <InputLabel shrink={false} htmlFor="my-textfield">
+            <InputLabel shrink={false} htmlFor='my-textfield'>
               Permission
             </InputLabel>
-            <TextField
-              fullWidth
-            />
-
+            <TextField fullWidth />
           </Grid>
           <Grid item xs={12} sm={6}>
-
-            <InputLabel shrink={false} htmlFor="my-textfield">
+            <InputLabel shrink={false} htmlFor='my-textfield'>
               Level
             </InputLabel>
-            <TextField
-              fullWidth
-            />
+            <TextField fullWidth />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <InputLabel shrink={false} htmlFor="my-textfield">
+            <InputLabel shrink={false} htmlFor='my-textfield'>
               Created At
             </InputLabel>
             <TextField
