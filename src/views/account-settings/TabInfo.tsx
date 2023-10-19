@@ -53,7 +53,8 @@ const TabInfo = () => {
     degree: '',
     acedemicrank: '',
     armyrank: '',
-    profilepicture: ''
+    profilepicture: '',
+    bio:''
   }
   const [data, setData] = useState<IAccountInfo>(initialData)
   const handleUpdate = () => {
@@ -98,8 +99,8 @@ const TabInfo = () => {
             <TextField
               fullWidth
               label='Website'
-              placeholder='https://example.com/'
-              defaultValue='https://themeselection.com/'
+              // placeholder='https://example.com/'
+              // defaultValue='https://themeselection.com/'
             />
           </Grid>
           <Grid item xs={12} sm={6}>
