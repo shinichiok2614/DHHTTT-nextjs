@@ -37,4 +37,4 @@ export const authSlice = createSlice({
 export const getAccountInfoAction = createAsyncThunk('auth/fetchAccount', async () => {
   return await getAccountInfo()
 })
-export const AccountSelector = () => useAppSelector((state) => state.auth.account)
+export const AccountSelector = () => useAppSelector(state => state.auth.account)

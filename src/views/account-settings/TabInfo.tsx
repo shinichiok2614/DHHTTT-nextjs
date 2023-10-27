@@ -25,6 +25,7 @@ import { useAppDispatch } from 'src/_redux/hooks'
 import { AccountSelector, getAccountInfoAction } from 'src/_redux/features/auth'
 import IAccountInfo from 'src/types/account'
 import { updateUser } from 'src/apis/user'
+import { PersonSelector, getPersonInfoAction } from 'src/_redux/features/person'
 
 const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
@@ -54,7 +55,7 @@ const TabInfo = () => {
     acedemicrank: '',
     armyrank: '',
     profilepicture: '',
-    bio:''
+    bio: ''
   }
   const [data, setData] = useState<IAccountInfo>(initialData)
   const handleUpdate = () => {
@@ -62,18 +63,23 @@ const TabInfo = () => {
     console.log(data)
     updateUser(data)
   }
-
+  useEffect(() => {
+    dispatch(getPersonInfoAction())
+  }, [])
+  const personSelector = PersonSelector()
   return (
     <CardContent>
       <form>
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8 }}>
+            <InputLabel>Bio</InputLabel>
             <TextField
               fullWidth
               multiline
-              label='Bio'
+              // label='Bio'
               minRows={2}
-              placeholder={accountSelector.accountData?.bio}
+              placeholder={personSelector.personData?.bio}
+              // placeholder={accountSelector.accountData?.bio}
 
               // placeholder='Bio'
               // defaultValue='The name’s John Deo. I am a tireless seeker of knowledge, occasional purveyor of wisdom and also, coincidentally, a graphic designer. Algolia helps businesses across industries quickly create relevant 😎, scalable 😀, and lightning 😍 fast search and discovery experiences.'
@@ -81,6 +87,7 @@ const TabInfo = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <DatePickerWrapper>
+              <InputLabel>Birth Date</InputLabel>
               <DatePicker
                 selected={date}
                 showYearDropdown
@@ -93,26 +100,56 @@ const TabInfo = () => {
             </DatePickerWrapper>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' />
+            <InputLabel>Phone</InputLabel>
+            <TextField fullWidth type='number' placeholder={personSelector.personData?.phone} />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <InputLabel>Address</InputLabel>
             <TextField
               fullWidth
-              label='Website'
+              // label='Website'
+              placeholder={personSelector.personData?.address}
               // placeholder='https://example.com/'
               // defaultValue='https://themeselection.com/'
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Country</InputLabel>
-              <Select label='Country' defaultValue='USA'>
+            {/* <FormControl fullWidth> */}
+            <InputLabel>Degree</InputLabel>
+            <TextField
+              fullWidth
+              // label='Website'
+              placeholder={personSelector.personData?.address}
+              // placeholder='https://example.com/'
+              // defaultValue='https://themeselection.com/'
+            />
+            {/* <Select label='Country' defaultValue='USA'>
                 <MenuItem value='USA'>USA</MenuItem>
                 <MenuItem value='UK'>UK</MenuItem>
                 <MenuItem value='Australia'>Australia</MenuItem>
                 <MenuItem value='Germany'>Germany</MenuItem>
-              </Select>
-            </FormControl>
+              </Select> */}
+            {/* </FormControl> */}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel>Acedemic Rank</InputLabel>
+            <TextField fullWidth placeholder={personSelector.personData?.acedemicrank} />
+            <Select
+              multiple
+              defaultValue={['Professor']}
+              // defaultValue={[personSelector.personData?.acedemicrank]}
+              id='account-settings-multiple-select'
+              labelId='account-settings-multiple-select-label'
+              input={<OutlinedInput label='Languages' id='select-multiple-language' />}
+            >
+              <MenuItem value='Professor'>Professor</MenuItem>
+              <MenuItem value='French'>French</MenuItem>
+              <MenuItem value='Spanish'>Spanish</MenuItem>
+              <MenuItem value='Portuguese'>Portuguese</MenuItem>
+              <MenuItem value='Italian'>Italian</MenuItem>
+              <MenuItem value='German'>German</MenuItem>
+              <MenuItem value='Arabic'>Arabic</MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>

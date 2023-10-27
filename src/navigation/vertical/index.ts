@@ -46,34 +46,62 @@ const navigation = (): VerticalNavItemsType => {
       path: '/pages/error',
       openInNewTab: false
     },
-    // {
-    //   sectionTitle: 'User Interface'
-    // },
-    // {
-    //   title: 'Typography',
-    //   icon: FormatLetterCase,
-    //   path: '/typography'
-    // },
-    // {
-    //   title: 'Icons',
-    //   path: '/icons',
-    //   icon: GoogleCirclesExtended
-    // },
-    // {
-    //   title: 'Cards',
-    //   icon: CreditCardOutline,
-    //   path: '/cards'
-    // },
-    // {
-    //   title: 'Tables',
-    //   icon: Table,
-    //   path: '/tables'
-    // },
-    // {
-    //   icon: CubeOutline,
-    //   title: 'Form Layouts',
-    //   path: '/form-layouts'
-    // }
+    {
+      sectionTitle: 'Nhiệm vụ'
+    },
+    {
+      title: 'Nhận nhiệm vụ',
+      icon: AccountPlusOutline,
+      path: '/nhannhiemvu'
+    },
+    {
+      title: 'Giao nhiệm vụ',
+      icon: AccountPlusOutline,
+      path: '/giaonhiemvu'
+    },
+    {
+      sectionTitle: 'Báo cáo'
+    },
+
+    {
+      title: 'Báo cáo cấp trên',
+      icon: AccountPlusOutline
+    },
+    {
+      sectionTitle: 'Thống kê'
+    },
+    {
+      title: 'Thống kê báo cáo cấp dưới',
+      icon: AccountPlusOutline
+    },
+    {
+      sectionTitle: 'User Interface'
+    },
+    {
+      title: 'Typography',
+      icon: FormatLetterCase,
+      path: '/typography'
+    },
+    {
+      title: 'Icons',
+      path: '/icons',
+      icon: GoogleCirclesExtended
+    },
+    {
+      title: 'Cards',
+      icon: CreditCardOutline,
+      path: '/cards'
+    },
+    {
+      title: 'Tables',
+      icon: Table,
+      path: '/tables'
+    },
+    {
+      icon: CubeOutline,
+      title: 'Form Layouts',
+      path: '/form-layouts'
+    }
   ]
 }
 

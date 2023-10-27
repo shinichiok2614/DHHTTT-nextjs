@@ -24,6 +24,7 @@ import { useAppDispatch } from 'src/_redux/hooks'
 import { AccountSelector, getAccountInfoAction } from 'src/_redux/features/auth'
 import IAccountInfo from 'src/types/account'
 import { updateUser } from 'src/apis/user'
+import { PersonSelector, getPersonInfoAction } from 'src/_redux/features/person'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
@@ -67,25 +68,32 @@ const TabAccount = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(getAccountInfoAction())
+    dispatch(getPersonInfoAction())
   }, [dispatch])
   const accountSelector = AccountSelector()
-
+  const personSelector = PersonSelector()
   const initialData: IAccountInfo = {
     email: '',
-    firstName: '',
-    lastName: '',
     createdAt: '',
     updatedAt: '',
-    idPermission: 1,
-    level: 1,
-    phone: '',
-    dateofbirth: '',
-    address: '',
-    degree: '',
-    acedemicrank: '',
-    armyrank: '',
-    profilepicture: ''
+    idAdmin: 0
   }
+  // const initialDataPerson: IPersonInfo = {
+  //   email: '',
+  //   firstName: '',
+  //   lastName: '',
+  //   createdAt: '',
+  //   updatedAt: '',
+  //   idPermission: 1,
+  //   level: 1,
+  //   phone: '',
+  //   dateofbirth: '',
+  //   address: '',
+  //   degree: '',
+  //   acedemicrank: '',
+  //   armyrank: '',
+  //   profilepicture: ''
+  // }
   const [data, setData] = useState<IAccountInfo>(initialData)
   const handleUpdate = () => {
     console.log('data')
@@ -127,8 +135,9 @@ const TabAccount = () => {
             </InputLabel>
             <TextField
               fullWidth
-              placeholder={accountSelector.accountData?.firstName}
-              onChange={e => setData({ ...data, firstName: e.target.value })}
+              placeholder={personSelector.personData?.firstName}
+              // placeholder={accountSelector.accountData?.firstName}
+              // onChange={e => setData({ ...data, firstName: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -137,8 +146,9 @@ const TabAccount = () => {
             </InputLabel>
             <TextField
               fullWidth
-              placeholder={accountSelector.accountData?.lastName}
-              onChange={e => setData({ ...data, lastName: e.target.value })}
+              placeholder={personSelector.personData?.lastName}
+              // placeholder={accountSelector.accountData?.lastName}
+              // onChange={e => setData({ ...data, lastName: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -151,7 +161,7 @@ const TabAccount = () => {
             <InputLabel shrink={false} htmlFor='my-textfield'>
               Permission
             </InputLabel>
-            <TextField fullWidth />
+            <TextField fullWidth placeholder={accountSelector.accountData?.idAdmin.toString() || 'Normal'} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <InputLabel shrink={false} htmlFor='my-textfield'>
