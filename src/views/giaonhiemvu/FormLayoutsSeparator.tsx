@@ -27,7 +27,10 @@ import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { Chip } from '@mui/material'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
 
 interface State {
   password: string
@@ -36,8 +39,11 @@ interface State {
   showPassword2: boolean
 }
 
-const CustomInput = forwardRef((props, ref) => {
-  return <TextField fullWidth {...props} inputRef={ref} label='Birth Date' autoComplete='off' />
+const CustomInputNgayGiao = forwardRef((props, ref) => {
+  return <TextField fullWidth {...props} inputRef={ref} label='Ngày giao' autoComplete='off' />
+})
+const CustomInputHanXuLy = forwardRef((props, ref) => {
+  return <TextField fullWidth {...props} inputRef={ref} label='Hạn xử lý' autoComplete='off' />
 })
 
 const FormLayoutsSeparator = () => {
@@ -77,10 +83,23 @@ const FormLayoutsSeparator = () => {
   const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
     setLanguage(event.target.value as string[])
   }
-  const [selectedTopics, setSelectedTopics] = useState<string[]>(['Chủ đề 1', 'Chủ đề 2']);
+
+  const [open, setOpen] = useState(false)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const handleTopicSelect = (event: SelectChangeEvent<string>) => {
+    setSelectedTopics([...selectedTopics, event.target.value as string]);
+    setOpen(false);
+  };
+  const handleTopicRemove = (topic: string) => {
+    setSelectedTopics(selectedTopics.filter(t => t !== topic));
+  };
   return (
     <Card>
-      <CardHeader title='Nhận nhiệm vụ' titleTypographyProps={{ variant: 'h6' }} />
+      <CardHeader title='Giao nhiệm vụ' titleTypographyProps={{ variant: 'h6' }} />
       <Divider sx={{ margin: 0 }} />
       <form onSubmit={e => e.preventDefault()}>
         <CardContent>
@@ -92,7 +111,7 @@ const FormLayoutsSeparator = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <InputLabel>Tên nhiệm vụ</InputLabel>
-              <TextField fullWidth  />
+              <TextField fullWidth />
             </Grid>
             <Grid item xs={12} sm={6}>
               <InputLabel>Người giao</InputLabel>
@@ -111,14 +130,44 @@ const FormLayoutsSeparator = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12}>
-              <InputLabel>Nội dung</InputLabel>
-              <TextField fullWidth multiline minRows={3} />
+              {/* <InputLabel>Nội dung</InputLabel> */}
+              <TextField label='Nội dung' fullWidth multiline minRows={3} />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <InputLabel>Chủ đê</InputLabel>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel>Chủ đề</InputLabel>
-              {selectedTopics.map((topic, index) => (
-                <Chip key={index} label={topic} />
+              {selectedTopics.map(topic => (
+                <div key={topic}>
+                  <span>{topic}</span>
+                  <Button onClick={() => handleTopicRemove(topic)}>Xóa</Button>
+                </div>
               ))}
+              <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+                Thêm
+              </Button>
+              <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Chọn chủ đề</DialogTitle>
+                <DialogContent>
+                  <FormControl fullWidth>
+                    <Select
+                      defaultValue=''
+                      id='form-layouts-separator-select'
+                      labelId='form-layouts-separator-select-label'
+                      onChange={handleTopicSelect}
+                    >
+                      <MenuItem value='Chủ đề 1'>Chủ đề 1</MenuItem>
+                      <MenuItem value='Chủ đề 2'>Chủ đề 2</MenuItem>
+                      <MenuItem value='Chủ đề 3'>Chủ đề 3</MenuItem>
+                    </Select>
+                  </FormControl>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Đóng
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Grid>
             <Grid item xs={12}>
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
@@ -126,33 +175,51 @@ const FormLayoutsSeparator = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel>Ngày giao</InputLabel>
+              {/* <InputLabel>Ngày giao</InputLabel> */}
               <DatePicker
                 selected={date}
                 showYearDropdown
                 showMonthDropdown
                 placeholderText='MM-DD-YYYY'
-                customInput={<CustomInput />}
+                customInput={<CustomInputNgayGiao />}
                 id='form-layouts-separator-date'
                 onChange={(date: Date) => setDate(date)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel>Hạn xử lý</InputLabel>
+              {/* <InputLabel>Hạn xử lý</InputLabel> */}
               <DatePicker
                 selected={date}
                 showYearDropdown
                 showMonthDropdown
                 placeholderText='MM-DD-YYYY'
-                customInput={<CustomInput />}
+                customInput={<CustomInputHanXuLy />}
                 id='form-layouts-separator-date'
                 onChange={(date: Date) => setDate(date)}
               />
             </Grid>
             <Grid item xs={12}>
-              <Divider sx={{ marginBottom: 0 }} />
+              <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                3. Đơn vị nhận:
+              </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <InputLabel>Tên đơn vị</InputLabel>
+              <FormControl fullWidth>
+                <Select
+                  // label='Country'
+                  defaultValue=''
+                  id='form-layouts-separator-select'
+                  labelId='form-layouts-separator-select-label'
+                >
+                  <MenuItem value='UK'>UK</MenuItem>
+                  <MenuItem value='USA'>USA</MenuItem>
+                  <MenuItem value='Australia'>Australia</MenuItem>
+                  <MenuItem value='Germany'>Germany</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* <Grid item xs={12}>
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
                 3. Tiến độ nhiệm vụ
               </Typography>
@@ -177,7 +244,7 @@ const FormLayoutsSeparator = () => {
                 control={<Checkbox name='form-layouts-alignment-checkbox' />}
                 sx={{ '& .MuiButtonBase-root': { paddingTop: 0, paddingBottom: 0 } }}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider sx={{ margin: 0 }} />

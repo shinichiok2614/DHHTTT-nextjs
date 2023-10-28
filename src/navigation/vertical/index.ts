@@ -60,6 +60,12 @@ const navigation = (): VerticalNavItemsType => {
       path: '/giaonhiemvu'
     },
     {
+      title: 'Danh sách nhiệm vụ',
+      icon: AccountPlusOutline,
+      path: '/danhsachnhiemvu'
+
+    },
+    {
       sectionTitle: 'Báo cáo'
     },
 
