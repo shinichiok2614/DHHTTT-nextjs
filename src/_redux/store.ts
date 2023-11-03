@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authSlice } from './features/auth'
 import { personSlice } from './features/person'
+import { nhiemvuSlice } from './features/nhiemvu'
 
 // import { createWrapper } from 'next-redux-wrapper'
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    person: personSlice.reducer
+    person: personSlice.reducer,
+    nhiemvu: nhiemvuSlice.reducer
   }
 })
 

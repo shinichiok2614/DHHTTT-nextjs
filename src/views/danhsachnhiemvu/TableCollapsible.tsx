@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -17,6 +17,9 @@ import TableContainer from '@mui/material/TableContainer'
 // ** Icons Imports
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
+import { useAppDispatch } from 'src/_redux/hooks'
+import { NhiemVuSelector, nhiemvuAction } from 'src/_redux/features/nhiemvu'
+import { getNhiemVu } from 'src/apis/nhiemvu'
 
 const createData = (name: string, calories: number, fat: number, carbs: number, protein: number, price: number) => {
   return {
@@ -108,8 +111,15 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5)
 ]
-
 const DanhSachNhiemVu = () => {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(nhiemvuAction())
+  }, [dispatch])
+  const nhiemvuSelector = NhiemVuSelector()
+  console.log('nhiemvuSelector.data')
+  console.log(nhiemvuSelector.data)
+  // console.log(await getNhiemVu())
   return (
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>

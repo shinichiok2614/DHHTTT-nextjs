@@ -1,8 +1,6 @@
-import DanhSachNhiemVu from "src/views/danhsachnhiemvu/TableCollapsible"
+import TableStickyHeader from "src/views/danhsachnhiemvu/TableStickyHeader"
 
 const DanhSachNhiemVuPage=()=>{
-    return(
-        <DanhSachNhiemVu/>
-    )
+    return <TableStickyHeader />
 }
 export default DanhSachNhiemVuPage

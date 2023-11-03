@@ -31,6 +31,8 @@ import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
 
 interface State {
   password: string
@@ -89,14 +91,30 @@ const FormLayoutsSeparator = () => {
   const handleClose = () => {
     setOpen(false)
   }
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([])
   const handleTopicSelect = (event: SelectChangeEvent<string>) => {
-    setSelectedTopics([...selectedTopics, event.target.value as string]);
-    setOpen(false);
-  };
+    setSelectedTopics([...selectedTopics, event.target.value as string])
+    setOpen(false)
+  }
   const handleTopicRemove = (topic: string) => {
-    setSelectedTopics(selectedTopics.filter(t => t !== topic));
-  };
+    setSelectedTopics(selectedTopics.filter(t => t !== topic))
+  }
+  const [openUnit, setOpenUnit] = useState(false)
+  const [selectedUnits, setSelectedUnits] = useState<string[]>([])
+  // Thêm hàm xử lý khi chọn đơn vị
+  const handleUnitSelect = (event: SelectChangeEvent<string>) => {
+    // Cập nhật đơn vị đã chọn tại đây
+    setSelectedUnits([...selectedUnits, event.target.value as string])
+    setOpenUnit(false)
+  }
+
+  // Thêm hàm xử lý khi đóng modal
+  const handleCloseUnit = () => {
+    setOpenUnit(false)
+  }
+  const handleUnitRemove = (unitToRemove: string) => {
+    setSelectedUnits(selectedUnits.filter(unit => unit !== unitToRemove))
+  }
   return (
     <Card>
       <CardHeader title='Giao nhiệm vụ' titleTypographyProps={{ variant: 'h6' }} />
@@ -130,11 +148,10 @@ const FormLayoutsSeparator = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12}>
-              {/* <InputLabel>Nội dung</InputLabel> */}
               <TextField label='Nội dung' fullWidth multiline minRows={3} />
             </Grid>
             <Grid item xs={12} sm={12}>
-              <InputLabel>Chủ đê</InputLabel>
+              <InputLabel>Chủ đề</InputLabel>
             </Grid>
             <Grid item xs={12} sm={6}>
               {selectedTopics.map(topic => (
@@ -143,7 +160,7 @@ const FormLayoutsSeparator = () => {
                   <Button onClick={() => handleTopicRemove(topic)}>Xóa</Button>
                 </div>
               ))}
-              <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+              <Button variant='contained' color='primary' onClick={() => setOpen(true)}>
                 Thêm
               </Button>
               <Dialog open={open} onClose={handleClose}>
@@ -163,7 +180,7 @@ const FormLayoutsSeparator = () => {
                   </FormControl>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose} color="primary">
+                  <Button onClick={handleClose} color='primary'>
                     Đóng
                   </Button>
                 </DialogActions>
@@ -204,47 +221,16 @@ const FormLayoutsSeparator = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <InputLabel>Tên đơn vị</InputLabel>
-              <FormControl fullWidth>
-                <Select
-                  // label='Country'
-                  defaultValue=''
-                  id='form-layouts-separator-select'
-                  labelId='form-layouts-separator-select-label'
-                >
-                  <MenuItem value='UK'>UK</MenuItem>
-                  <MenuItem value='USA'>USA</MenuItem>
-                  <MenuItem value='Australia'>Australia</MenuItem>
-                  <MenuItem value='Germany'>Germany</MenuItem>
-                </Select>
-              </FormControl>
+              {selectedUnits.map((unit, index) => (
+                <div key={index}>
+                  <span>{unit}</span>
+                  <Button onClick={() => handleUnitRemove(unit)}>Xóa</Button>
+                </div>
+              ))}
+              <Button variant='contained' color='primary' onClick={() => setOpenUnit(true)}>
+                Thêm
+              </Button>
             </Grid>
-            {/* <Grid item xs={12}>
-              <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                3. Tiến độ nhiệm vụ
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <FormControlLabel
-                label='Nhận nhiệm vụ'
-                control={<Checkbox name='form-layouts-alignment-checkbox' />}
-                sx={{ '& .MuiButtonBase-root': { paddingTop: 0, paddingBottom: 0 } }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <FormControlLabel
-                label='Đang xử lý'
-                control={<Checkbox name='form-layouts-alignment-checkbox' />}
-                sx={{ '& .MuiButtonBase-root': { paddingTop: 0, paddingBottom: 0 } }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <FormControlLabel
-                label='Đã báo cáo'
-                control={<Checkbox name='form-layouts-alignment-checkbox' />}
-                sx={{ '& .MuiButtonBase-root': { paddingTop: 0, paddingBottom: 0 } }}
-              />
-            </Grid> */}
           </Grid>
         </CardContent>
         <Divider sx={{ margin: 0 }} />
@@ -257,6 +243,42 @@ const FormLayoutsSeparator = () => {
           </Button>
         </CardActions>
       </form>
+      <Modal
+        open={openUnit}
+        onClose={handleCloseUnit}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4
+          }}
+        >
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            Chọn đơn vị
+          </Typography>
+          <FormControl fullWidth>
+            <Select
+              defaultValue=''
+              id='form-layouts-separator-select-unit'
+              labelId='form-layouts-separator-select-label-unit'
+              onChange={handleUnitSelect}
+            >
+              <MenuItem value='Đơn vị 1'>Đơn vị 1</MenuItem>
+              <MenuItem value='Đơn vị 2'>Đơn vị 2</MenuItem>
+              <MenuItem value='Đơn vị 3'>Đơn vị 3</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </Modal>
     </Card>
   )
 }

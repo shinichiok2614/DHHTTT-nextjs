@@ -50,20 +50,19 @@ const navigation = (): VerticalNavItemsType => {
       sectionTitle: 'Nhiệm vụ'
     },
     {
-      title: 'Nhận nhiệm vụ',
-      icon: AccountPlusOutline,
-      path: '/nhannhiemvu'
-    },
-    {
       title: 'Giao nhiệm vụ',
       icon: AccountPlusOutline,
       path: '/giaonhiemvu'
     },
     {
+      title: 'Nhận nhiệm vụ',
+      icon: AccountPlusOutline,
+      path: '/nhannhiemvu'
+    },
+    {
       title: 'Danh sách nhiệm vụ',
       icon: AccountPlusOutline,
       path: '/danhsachnhiemvu'
-
     },
     {
       sectionTitle: 'Báo cáo'
@@ -78,6 +77,22 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Thống kê báo cáo cấp dưới',
+      icon: AccountPlusOutline,
+      path: '/thongkebaocaocapduoi'
+    },
+    {
+      sectionTitle: 'Cá nhân'
+    },
+    {
+      title: 'Đăng bài',
+      icon: AccountPlusOutline,
+      path: '/dangbai'
+    },
+    {
+      sectionTitle: 'Admin'
+    },
+    {
+      title: 'Phân quyền',
       icon: AccountPlusOutline
     },
     {
