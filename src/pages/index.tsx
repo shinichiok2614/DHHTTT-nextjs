@@ -21,80 +21,34 @@ import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
 import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
 import SalesByCountries from 'src/views/dashboard/SalesByCountries'
+import { Card, CardContent, CardHeader, Typography } from '@mui/material'
+import { DemoGrid } from 'src/views/typography/TypographyHeadings'
 
 const Dashboard = () => {
   return (
-    <ApexChartWrapper>
-      <Grid container spacing={6}>
-        <Grid item xs={12} md={4}>
-          <Trophy />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <StatisticsCard />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <WeeklyOverview />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <TotalEarning />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <Grid container spacing={6}>
-            <Grid item xs={6}>
-              <CardStatisticsVerticalComponent
-                stats='$25.6k'
-                icon={<Poll />}
-                color='success'
-                trendNumber='+42%'
-                title='Total Profit'
-                subtitle='Weekly Profit'
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CardStatisticsVerticalComponent
-                stats='$78'
-                title='Refunds'
-                trend='negative'
-                color='secondary'
-                trendNumber='-15%'
-                subtitle='Past Month'
-                icon={<CurrencyUsd />}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CardStatisticsVerticalComponent
-                stats='862'
-                trend='negative'
-                trendNumber='-18%'
-                title='New Project'
-                subtitle='Yearly Project'
-                icon={<BriefcaseVariantOutline />}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <CardStatisticsVerticalComponent
-                stats='15'
-                color='warning'
-                trend='negative'
-                trendNumber='-18%'
-                subtitle='Last Week'
-                title='Sales Queries'
-                icon={<HelpCircleOutline />}
-              />
-            </Grid>
+    <Card>
+      {/* <CardHeader title='Headings' titleTypographyProps={{ variant: 'h6' }} /> */}
+      <CardContent>
+        <Grid container spacing={6}>
+          <Grid item xs={12} sm={2} sx={{ display: 'flex', alignItems: 'center' }}>
+            {/* <Typography>H1</Typography> */}
           </Grid>
+          <DemoGrid item xs={12} sm={10}>
+            <Typography variant='h2' sx={{ marginBottom: 2 }}>
+              INFORMATION OPERATING SYSTEM
+            </Typography>
+            <Typography variant='h3' sx={{ marginBottom: 2 }}>
+              HỆ THỐNG ĐIỀU HÀNH THÔNG TIN
+            </Typography>
+            {/* <Typography variant='body2'>font-size: 96px / line-height: 112px / font-weight: 500</Typography> */}
+            <Typography variant='body1'>Giáo viên hướng dẫn: Nguyễn Mạnh Hùng</Typography>
+            <Typography variant='body1'>Nhóm 5</Typography>
+            <Typography variant='body1'>Học viên thực hiện: Phạm Quang Duẩn - Trần Nguyễn Minh Tuấn</Typography>
+            <Typography variant='body1'>Lớp: CNTT12</Typography>
+          </DemoGrid>
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <SalesByCountries />
-        </Grid>
-        <Grid item xs={12} md={12} lg={8}>
-          <DepositWithdraw />
-        </Grid>
-        <Grid item xs={12}>
-          <Table />
-        </Grid>
-      </Grid>
-    </ApexChartWrapper>
+      </CardContent>
+    </Card>
   )
 }
 

@@ -55,26 +55,29 @@ const UserLayout = ({ children }: Props) => {
   }
 
   return (
-    <VerticalLayout
-      hidden={hidden}
-      settings={settings}
-      saveSettings={saveSettings}
-      verticalNavItems={VerticalNavItems()} // Navigation Items
-      // afterVerticalNavMenuContent={UpgradeToProImg}
-      verticalAppBarContent={(
-        props // AppBar Content
-      ) => (
-        <VerticalAppBarContent
-          hidden={hidden}
-          settings={settings}
-          saveSettings={saveSettings}
-          toggleNavVisibility={props.toggleNavVisibility}
-        />
-      )}
-    >
-      <Provider store={store}>{children}</Provider>
-      {/* <UpgradeToProButton /> */}
-    </VerticalLayout>
+    // <Provider store={store}>
+      <VerticalLayout
+        hidden={hidden}
+        settings={settings}
+        saveSettings={saveSettings}
+        verticalNavItems={VerticalNavItems()} // Navigation Items
+        // afterVerticalNavMenuContent={UpgradeToProImg}
+        verticalAppBarContent={(
+          props // AppBar Content
+        ) => (
+          <VerticalAppBarContent
+            hidden={hidden}
+            settings={settings}
+            saveSettings={saveSettings}
+            toggleNavVisibility={props.toggleNavVisibility}
+          />
+        )}
+      >
+        {children}
+        {/* <Provider store={store}>{children}</Provider> */}
+        {/* <UpgradeToProButton /> */}
+      </VerticalLayout>
+    // </Provider>
   )
 }
 

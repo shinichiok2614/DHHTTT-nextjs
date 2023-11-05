@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Grid, { GridProps } from '@mui/material/Grid'
 
-const DemoGrid = styled(Grid)<GridProps>(({ theme }) => ({
+export const DemoGrid = styled(Grid)<GridProps>(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     paddingTop: `${theme.spacing(1)} !important`
   }
