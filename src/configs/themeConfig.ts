@@ -19,7 +19,7 @@ const themeConfig: ThemeConfig = {
   // ** Layout Configs
   // templateName: 'Materio' /* App Name */,
   templateName: '' /* App Name */,
-  mode: 'light' /* light | dark */,
+  mode: 'dark' /* light | dark */,
   contentWidth: 'boxed' /* full | boxed */,
 
   // ** Routing Configs

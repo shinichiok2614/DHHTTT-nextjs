@@ -37,4 +37,11 @@ const updateUser = async (params: IAccountInfo) => {
     throw error
   }
 }
+
+export const getAllUser = () => {
+  return axios.get(`${BASE_URL}/users/all`).then(res => {
+    return res.data
+  })
+}
+
 export { updateUser }

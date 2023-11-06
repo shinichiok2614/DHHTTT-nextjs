@@ -103,7 +103,8 @@ const navigation = (): VerticalNavItemsType => {
       },
       {
         title: 'Phân quyền',
-        icon: AccountPlusOutline
+        icon: AccountPlusOutline,
+        path:'/phanquyen'
       },
       {
         sectionTitle: 'User Interface'
