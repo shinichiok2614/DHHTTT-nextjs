@@ -20,6 +20,7 @@ import { PersonAllSelector, personAllAction } from 'src/_redux/features/personAl
 import { ListPersonRow } from 'src/types/person'
 import { UserAllSelector, userAllAction } from 'src/_redux/features/userAll'
 import { setSelectedUserAllId } from 'src/_redux/features/userAllSelect'
+import { updatePersonAdmin } from 'src/apis/person'
 interface Column {
   id: 'name' | 'idDonVi' | 'idUser' | 'select' | 'update'
   label: string
@@ -90,7 +91,10 @@ const TableStickyHeader = () => {
 
   const [openModal, setOpenModal] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
-  const handleOpenModal = () => {
+  const [idperson, setidperson] = useState(0)
+  const [iduser, setiduser] = useState(0)
+  const handleOpenModal = (id: number) => {
+    setidperson(id)
     setOpenModal(true)
   }
   const handleCloseModal = () => {
@@ -100,6 +104,7 @@ const TableStickyHeader = () => {
     console.log(user)
     setSelectedUser(user)
     dispatch(setSelectedUserAllId(user))
+    updatePersonAdmin(idperson, iduser)
   }
   const style = {
     position: 'absolute' as 'absolute',
@@ -139,7 +144,9 @@ const TableStickyHeader = () => {
                     {row.User?.email} {selectedUser?.email}
                   </TableCell>
                   <TableCell>
-                    <Button onClick={handleOpenModal} variant='contained'>Chọn tài khoản</Button>
+                    <Button onClick={handleOpenModal(row.)} variant='contained'>
+                      Chọn tài khoản
+                    </Button>
                   </TableCell>
                   <TableCell>
                     <Button variant='contained'>Cập nhật</Button>
